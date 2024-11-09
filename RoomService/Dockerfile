@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /app
 
 # Copy the jar file into the container
-COPY build/libs/roomservice.jar app.jar
+COPY build/libs/RoomService-0.0.1-SNAPSHOT.jar app.jar
 
 # Make the JAR file executable
 ENTRYPOINT ["java", "-jar", "app.jar"]
