@@ -6,6 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.group75.ApprovalService.model.Approval;
 import org.springframework.web.client.RestTemplate;
+import org.junit.jupiter.api.BeforeAll;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.DynamicPropertyRegistry;
+import org.testcontainers.containers.MongoDBContainer;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -67,4 +73,18 @@ public class ApprovalService {
         public void save(Approval approval) {
             approvalRepository.save(approval);
         }
+        @SpringBootTest
+        public class BookingServiceIntegrationTest {
+
+            static MongoDBContainer mongoDB = new MongoDBContainer("mongo:latest");
+
+            @BeforeAll
+            static void startContainer() {
+                mongoDB.start();
+            }
+
+            @DynamicPropertySource
+            static void databaseProperties(DynamicPropertyRegistry registry) {
+                registry.add("spring.data.mongodb.uri", mongoDB::getReplicaSetUrl);
+            }
 }

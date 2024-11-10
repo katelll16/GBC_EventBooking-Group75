@@ -1,14 +1,14 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:17-jdk-slim
+# Use an OpenJDK image
+FROM openjdk:17-jdk-alpine
 
-# Set the working directory in the container
+# Set working directory
 WORKDIR /app
 
-# Copy the jar file into the container
-COPY build/libs/UserService-0.0.1-SNAPSHOT.jar app.jar
+# Copy the JAR file to the container
+COPY build/libs/RoomService-0.0.1-SNAPSHOT.jar app.jar
 
-# Make the JAR file executable
-ENTRYPOINT ["java", "-jar", "app.jar"]
-
-# Expose the port the application will run on
+# Expose the port RoomService runs on
 EXPOSE 8084
+
+# Run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
