@@ -9,5 +9,4 @@ class RoomServiceApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }
