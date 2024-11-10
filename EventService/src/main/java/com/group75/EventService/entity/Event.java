@@ -16,7 +16,7 @@ public class Event {
     @NotEmpty(message = "Organizer ID cannot be empty")
     private String organizerId;
 
-    private String eventType; // e.g., "Workshop", "Lecture", "Meeting"
+    private String eventType;
     private int expectedAttendees;
     private String roomId;
     private LocalDateTime eventDate;

@@ -16,12 +16,11 @@ public class Approval {
     @NotEmpty(message = "User ID cannot be empty")
     private String userId;
 
-    private String status; // e.g., "Pending", "Approved", "Rejected"
+    private String status;
     private String comments;
 
     private LocalDateTime approvalDate;
 
-    // Getters and Setters
     public String getId() {
         return id;
     }

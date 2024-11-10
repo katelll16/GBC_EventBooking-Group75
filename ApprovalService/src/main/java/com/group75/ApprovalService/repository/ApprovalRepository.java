@@ -5,6 +5,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface ApprovalRepository extends MongoRepository<Approval, String> {
-    List<Approval> findByStatus(String status); // e.g., find approvals by status ("Pending", "Approved", etc.)
-    List<Approval> findByEventId(String eventId); // Find all approvals for a specific event
+    List<Approval> findByStatus(String status);
+    List<Approval> findByEventId(String eventId);
 }
