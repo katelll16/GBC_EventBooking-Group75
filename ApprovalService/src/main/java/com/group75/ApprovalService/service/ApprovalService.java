@@ -4,6 +4,8 @@ import com.group75.ApprovalService.entity.Approval;
 import com.group75.ApprovalService.repository.ApprovalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.group75.ApprovalService.model.Approval;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +17,21 @@ public class ApprovalService {
     @Autowired
     public ApprovalService(ApprovalRepository approvalRepository) {
         this.approvalRepository = approvalRepository;
-    }
+
+        @Autowired
+        private ApprovalRepository approvalRepository;
+
+        @Autowired
+        private RestTemplate restTemplate;
+
+        private static final String EVENT_SERVICE_URL = "http://event-service/api/events/details"; // Adjust URL accordingly
+        private static final String USER_SERVICE_URL = "http://user-service/api/users/role"; // Adjust URL accordingly
+
+        public boolean isEventValid(String eventId) {
+            // Call EventService to fetch event details and validate
+            String url = EVENT_SERVICE_URL + "?eventId=" + eventId;
+            return restTemplate.getForObject(url, Boolean.class); // EventService should return event validity
+        }
 
     public List<Approval> getAllApprovals() {
         return approvalRepository.findAll();
@@ -41,4 +57,14 @@ public class ApprovalService {
     public List<Approval> findApprovalsByStatus(String status) {
         return approvalRepository.findByStatus(status);
     }
+
+        public boolean isStaffAuthorized(String staffId) {
+            String url = USER_SERVICE_URL + "?userId=" + staffId;
+            String role = restTemplate.getForObject(url, String.class);
+            return "staff".equals(role);
+        }
+
+        public void save(Approval approval) {
+            approvalRepository.save(approval);
+        }
 }

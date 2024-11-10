@@ -1,5 +1,6 @@
 package com.group75.EventService.controller;
 
+import com.group75.EventService.model.Event;
 import com.group75.EventService.entity.Event;
 import com.group75.EventService.service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class EventServiceController {
     @Autowired
     public EventServiceController(EventService eventService) {
         this.eventService = eventService;
+
+        @Autowired
+        private EventService eventService;
     }
 
     @GetMapping
@@ -24,10 +28,13 @@ public class EventServiceController {
         return eventService.getAllEvents();
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable String id) {
-        Optional<Event> event = eventService.getEventById(id);
-        return event.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    @PostMapping
+    public String createEvent(@RequestBody Event event) {
+        if (eventService.isOrganizerAuthorized(event.getOrganizerId())) {
+            eventService.save(event);
+            return "Event created successfully";
+        }
+        return "Organizer does not have permission to create the event";
     }
 
     @PostMapping

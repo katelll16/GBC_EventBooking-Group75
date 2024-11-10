@@ -5,17 +5,20 @@ import com.group75.BookingService.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingServiceController {
-    private final BookingService bookingService;
+    private BookingService bookingService;
 
     @Autowired
     public BookingServiceController(BookingService bookingService) {
         this.bookingService = bookingService;
+
+        private BookingService bookingService;
     }
 
     @GetMapping
@@ -30,8 +33,12 @@ public class BookingServiceController {
     }
 
     @PostMapping
-    public Booking createBooking(@RequestBody Booking booking) {
-        return bookingService.createBooking(booking);
+    public String createBooking(@RequestBody Booking booking) {
+        if (bookingService.isRoomAvailable(booking.getRoomId(), booking.getStartTime(), booking.getEndTime())) {
+            bookingService.save(booking);
+            return "Booking confirmed";
+        }
+        return "Room is not available for the selected time slot";
     }
 
     @PutMapping("/{id}")

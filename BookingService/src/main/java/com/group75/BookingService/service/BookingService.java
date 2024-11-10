@@ -4,6 +4,8 @@ import com.group75.BookingService.entity.Booking;
 import com.group75.BookingService.repository.BookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,7 +17,20 @@ public class BookingService {
     @Autowired
     public BookingService(BookingRepository bookingRepository) {
         this.bookingRepository = bookingRepository;
-    }
+
+        @Autowired
+        private BookingRepository bookingRepository;
+
+        @Autowired
+        private RestTemplate restTemplate;
+
+        private static final String ROOM_SERVICE_URL = "http://room-service/api/rooms/availability"; // Adjust URL accordingly
+
+        public boolean isRoomAvailable(String roomId, String startTime, String endTime) {
+            // Call RoomService to check if the room is available
+            String url = ROOM_SERVICE_URL + "?roomId=" + roomId + "&startTime=" + startTime + "&endTime=" + endTime;
+            return restTemplate.getForObject(url, Boolean.class);
+        }
 
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
@@ -53,4 +68,7 @@ public class BookingService {
         List<Booking> overlappingBookings = bookingRepository.findOverlappingBookings(roomId, startTime, endTime);
         return !overlappingBookings.isEmpty();
     }
+    public void save(Booking booking) {
+            bookingRepository.save(booking);
+        }
 }
