@@ -1,0 +1,105 @@
+version: '3.8'
+
+services:
+  roomservice:
+    image: group75/roomservice:latest
+    build:
+      context: ./RoomService
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://roomdb:5432/roomdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - roomdb
+    ports:
+      - "8083:8083"
+
+  roomdb:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: roomdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+
+  bookingservice:
+    image: group75/bookingservice:latest
+    build:
+      context: ./BookingService
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATA_MONGODB_URI=mongodb://bookingdb:27017/bookingdb
+    depends_on:
+      - bookingdb
+    ports:
+      - "8081:8081"
+
+  bookingdb:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_DATABASE: bookingdb
+    ports:
+      - "27018:27017"
+
+  userservice:
+    image: group75/userservice:latest
+    build:
+      context: ./UserService
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://userdb:5432/userdb
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - userdb
+    ports:
+      - "8084:8084"
+
+  userdb:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: userdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5432"
+
+  eventservice:
+    image: group75/eventservice:latest
+    build:
+      context: ./EventService
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATA_MONGODB_URI=mongodb://eventdb:27017/eventdb
+    depends_on:
+      - eventdb
+    ports:
+      - "8082:8082"
+
+  eventdb:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_DATABASE: eventdb
+    ports:
+      - "27019:27017"
+
+  approvalservice:
+    image: group75/approvalservice:latest
+    build:
+      context: ./ApprovalService
+    environment:
+      - SPRING_PROFILES_ACTIVE=production
+      - SPRING_DATA_MONGODB_URI=mongodb://approvaldb:27017/approvaldb
+    depends_on:
+      - approvaldb
+    ports:
+      - "8080:8080"
+
+  approvaldb:
+    image: mongo:6
+    environment:
+      MONGO_INITDB_DATABASE: approvaldb
+    ports:
+      - "27020:27017"
