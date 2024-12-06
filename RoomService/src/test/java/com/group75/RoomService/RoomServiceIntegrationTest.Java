@@ -1,4 +1,4 @@
-package com.group75.RoomService.service;
+package com.group75.RoomService
 
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.context.SpringBootTest;

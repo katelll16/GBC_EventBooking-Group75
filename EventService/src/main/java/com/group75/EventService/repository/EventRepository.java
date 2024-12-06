@@ -2,6 +2,7 @@ package com.group75.EventService.repository;
 
 import com.group75.EventService.entity.Event;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface EventRepository extends MongoRepository<Event, String> {

@@ -24,9 +24,12 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	runtimeOnly 'org.postgresql:postgresql'
 
-	// Test dependencies
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
 	testImplementation 'org.testcontainers:testcontainers:1.17.6'
 	testImplementation 'org.testcontainers:junit-jupiter:1.17.6'
 	testImplementation 'org.testcontainers:postgresql:1.17.6'

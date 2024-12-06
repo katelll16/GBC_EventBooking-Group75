@@ -5,20 +5,18 @@ import com.group75.BookingService.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
 public class BookingServiceController {
-    private BookingService bookingService;
+
+    private final BookingService bookingService;
 
     @Autowired
     public BookingServiceController(BookingService bookingService) {
         this.bookingService = bookingService;
-
-        private BookingService bookingService;
     }
 
     @GetMapping
@@ -33,17 +31,27 @@ public class BookingServiceController {
     }
 
     @PostMapping
-    public String createBooking(@RequestBody Booking booking) {
-        if (bookingService.isRoomAvailable(booking.getRoomId(), booking.getStartTime(), booking.getEndTime())) {
+    public ResponseEntity<String> createBooking(@RequestBody Booking booking) {
+        boolean isAvailable = bookingService.isRoomAvailable(
+                booking.getRoomId(),
+                booking.getStartTime().toString(),
+                booking.getEndTime().toString()
+        );
+        if (isAvailable) {
             bookingService.save(booking);
-            return "Booking confirmed";
+            return ResponseEntity.ok("Booking confirmed");
         }
-        return "Room is not available for the selected time slot";
+        return ResponseEntity.badRequest().body("Room is not available for the selected time slot");
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable String id, @RequestBody Booking bookingDetails) {
-        return ResponseEntity.ok(bookingService.updateBooking(id, bookingDetails));
+        try {
+            Booking updatedBooking = bookingService.updateBooking(id, bookingDetails);
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{id}")

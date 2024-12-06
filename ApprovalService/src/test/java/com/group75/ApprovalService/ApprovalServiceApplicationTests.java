@@ -9,5 +9,4 @@ class ApprovalServiceApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

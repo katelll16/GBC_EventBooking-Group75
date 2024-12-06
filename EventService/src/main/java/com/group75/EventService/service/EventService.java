@@ -4,13 +4,7 @@ import com.group75.EventService.entity.Event;
 import com.group75.EventService.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.group75.EventService.model.Event;
 import org.springframework.web.client.RestTemplate;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.testcontainers.containers.MongoDBContainer;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,28 +12,24 @@ import java.util.Optional;
 @Service
 public class EventService {
     private final EventRepository eventRepository;
+    private final RestTemplate restTemplate;
+
+    private static final String USER_SERVICE_URL = "http://user-service/api/users/role"; // Adjust URL accordingly
 
     @Autowired
-    public EventService(EventRepository eventRepository) {
+    public EventService(EventRepository eventRepository, RestTemplate restTemplate) {
         this.eventRepository = eventRepository;
+        this.restTemplate = restTemplate;
+    }
 
-        @Autowired
-        private EventRepository eventRepository;
+    public boolean isOrganizerAuthorized(String organizerId) {
+        String url = USER_SERVICE_URL + "?userId=" + organizerId;
+        String role = restTemplate.getForObject(url, String.class);
+        return "faculty".equals(role) || "staff".equals(role); // Only faculty or staff can organize large events
+    }
 
-        @Autowired
-        private RestTemplate restTemplate;
-
-        private static final String USER_SERVICE_URL = "http://user-service/api/users/role"; // Adjust URL accordingly
-
-        public boolean isOrganizerAuthorized(String organizerId) {
-            String url = USER_SERVICE_URL + "?userId=" + organizerId;
-            String role = restTemplate.getForObject(url, String.class);
-            return "faculty".equals(role) || "staff".equals(role); // Only faculty or staff can organize large events
-        }
-
-        public void save(Event event) {
-            eventRepository.save(event);
-        }
+    public void save(Event event) {
+        eventRepository.save(event);
     }
 
     public List<Event> getAllEvents() {
@@ -73,18 +63,4 @@ public class EventService {
             throw new IllegalArgumentException("Expected attendees must be greater than zero.");
         }
     }
-    @SpringBootTest
-    public class BookingServiceIntegrationTest {
-
-        static MongoDBContainer mongoDB = new MongoDBContainer("mongo:latest");
-
-        @BeforeAll
-        static void startContainer() {
-            mongoDB.start();
-        }
-
-        @DynamicPropertySource
-        static void databaseProperties(DynamicPropertyRegistry registry) {
-            registry.add("spring.data.mongodb.uri", mongoDB::getReplicaSetUrl);
-        }
 }

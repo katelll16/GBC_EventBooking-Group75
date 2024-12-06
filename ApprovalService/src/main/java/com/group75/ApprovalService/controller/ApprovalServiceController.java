@@ -17,9 +17,6 @@ public class ApprovalServiceController {
     @Autowired
     public ApprovalServiceController(ApprovalService approvalService) {
         this.approvalService = approvalService;
-
-        @Autowired
-        private ApprovalService approvalService;
     }
 
     @GetMapping
@@ -34,10 +31,8 @@ public class ApprovalServiceController {
     }
 
     @PostMapping
-    public String approveEvent(@RequestBody Approval approval) {
-        // Call EventService to fetch event details and UserService to verify staff privileges
-        if (approvalService.isEventValid(approval.getEventId()) && approvalService.isStaffAuthorized(approval.getStaffId())) {
-            approvalService.save(approval);
+    public String approveEvent(@RequestBody Approval approval) {if (approvalService.isEventValid(approval.getEventId()) && approvalService.isStaffAuthorized(approval.getUserId())) {
+            approvalService.createApproval(approval);
             return "Event approved";
         }
         return "Event approval failed";

@@ -4,11 +4,6 @@ import com.group75.UserService.entity.User;
 import com.group75.UserService.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.junit.jupiter.api.BeforeAll;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.DynamicPropertySource;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +40,10 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
+    public List<User> findUsersByRole(String role) {
+        return userRepository.findByRole(role);
+    }
+
     private void validateUser(User user) {
         if (user.getName() == null || user.getName().isEmpty()) {
             throw new IllegalArgumentException("User name cannot be empty.");
@@ -55,25 +54,5 @@ public class UserService {
         if (user.getRole() == null || user.getUserType() == null) {
             throw new IllegalArgumentException("User role and type cannot be empty.");
         }
-
-        @SpringBootTest
-        public class RoomServiceIntegrationTest {
-
-            static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:latest")
-                    .withDatabaseName("test_db")
-                    .withUsername("user")
-                    .withPassword("password");
-
-            @BeforeAll
-            static void startContainer() {
-                postgres.start();
-            }
-
-            @DynamicPropertySource
-            static void databaseProperties(DynamicPropertyRegistry registry) {
-                registry.add("spring.datasource.url", postgres::getJdbcUrl);
-                registry.add("spring.datasource.username", postgres::getUsername);
-                registry.add("spring.datasource.password", postgres::getPassword);
-            }
     }
 }
