@@ -40,6 +40,10 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
 	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0' // Add Swagger dependency
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
 	tasks.named('test') {
 		useJUnitPlatform()
 	}

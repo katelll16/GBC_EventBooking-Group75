@@ -103,3 +103,24 @@ services:
       MONGO_INITDB_DATABASE: approvaldb
     ports:
       - "27020:27017"
+
+
+  apigateway:
+    image: group75/apigateway:latest
+    build:
+      context: ./APIGateway
+    environment:
+      - KEYCLOAK_AUTH_URL=http://keycloak:8080/auth
+      - KEYCLOAK_REALM=event-booking
+      - KEYCLOAK_CLIENT_ID=api-gateway
+      - KEYCLOAK_CLIENT_SECRET=secret
+    depends_on:
+      - roomservice
+      - bookingservice
+      - userservice
+      - eventservice
+      - approvalservice
+    ports:
+      - "8085:8085"
+    networks:
+      - event-booking-network
