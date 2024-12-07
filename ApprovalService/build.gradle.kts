@@ -1,5 +1,5 @@
 plugins {
-	id("java")
+	java
 	id("org.springframework.boot") version "3.3.5"
 	id("io.spring.dependency-management") version "1.1.6"
 }
@@ -36,7 +36,7 @@ dependencies {
 	implementation("org.springframework.security:spring-security-oauth2-resource-server")
 	implementation("org.springframework.security:spring-security-oauth2-jose")
 
-	// Resilience4j for Spring Boot 3.x
+	// Resilience for Spring Boot 3.x
 	implementation("io.github.resilience4j:resilience4j-spring-boot3:2.0.2")
 
 	// Spring Cloud Gateway
@@ -45,7 +45,7 @@ dependencies {
 	// Keycloak Spring Boot Starter
 	implementation("org.keycloak:keycloak-spring-boot-starter:20.0.2")
 
-	// PostgreSQL and MongoDB
+	// PostgresSQL and MongoDB
 	implementation("org.postgresql:postgresql")
 
 	// Testing dependencies
