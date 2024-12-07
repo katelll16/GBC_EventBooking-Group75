@@ -14,7 +14,7 @@ public class EventService {
     private final EventRepository eventRepository;
     private final RestTemplate restTemplate;
 
-    private static final String USER_SERVICE_URL = "http://user-service/api/users/role"; // Adjust URL accordingly
+    private static final String USER_SERVICE_URL = "http://user-service/api/users/role";
 
     @Autowired
     public EventService(EventRepository eventRepository, RestTemplate restTemplate) {
@@ -25,7 +25,7 @@ public class EventService {
     public boolean isOrganizerAuthorized(String organizerId) {
         String url = USER_SERVICE_URL + "?userId=" + organizerId;
         String role = restTemplate.getForObject(url, String.class);
-        return "faculty".equals(role) || "staff".equals(role); // Only faculty or staff can organize large events
+        return "faculty".equals(role) || "staff".equals(role);
     }
 
     public void save(Event event) {
