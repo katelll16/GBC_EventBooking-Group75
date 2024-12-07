@@ -22,7 +22,6 @@ public class Booking {
 
     private String purpose;
 
-    // Getters and Setters
     public String getId() {
         return id;
     }
