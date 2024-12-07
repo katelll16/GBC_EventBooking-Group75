@@ -9,7 +9,6 @@ public class SwaggerConfig {
 
     @Bean
     public GroupedOpenApi userServiceApi() {
-        // Creating a Swagger configuration for UserService
         return GroupedOpenApi.builder()
                 .group("user-service")
                 .packagesToScan("com.group75.UserService.controller")

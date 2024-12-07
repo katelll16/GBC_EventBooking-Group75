@@ -30,4 +30,4 @@ public class UserServiceIntegrationTest {
     @Test
     void contextLoads() {
     }
-}s
+}

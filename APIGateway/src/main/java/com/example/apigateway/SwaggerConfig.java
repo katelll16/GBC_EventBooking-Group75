@@ -1,4 +1,3 @@
-package com.example.apigateway;
 package com.example.apigateway.config;
 
 import org.springdoc.core.GroupedOpenApi;
@@ -11,8 +10,8 @@ public class SwaggerConfig {
     @Bean
     public GroupedOpenApi aggregateApi() {
         return GroupedOpenApi.builder()
-                .group("gateway")  // Custom name for API Gateway documentation
-                .pathsToMatch("/**")  // Match all paths for the API Gateway
+                .group("gateway")
+                .pathsToMatch("/**")
                 .build();
     }
 }
