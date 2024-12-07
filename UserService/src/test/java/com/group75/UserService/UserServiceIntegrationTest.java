@@ -29,6 +29,5 @@ public class UserServiceIntegrationTest {
 
     @Test
     void contextLoads() {
-        // Test if the context loads correctly
     }
 }
