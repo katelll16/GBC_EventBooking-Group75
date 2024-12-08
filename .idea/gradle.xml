@@ -20,10 +20,49 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+<<<<<<< HEAD
         <option name="externalProjectPath" value="$PROJECT_DIR$/gateway-api" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/gateway-api" />
+=======
+        <option name="externalProjectPath" value="$PROJECT_DIR$/ApprovalService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/ApprovalService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/BookingService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/BookingService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/EventService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/EventService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/RoomService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/RoomService" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/UserService" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/UserService" />
+>>>>>>> 986ef234fd3096d5bf75da41df5695229ff09fe3
           </set>
         </option>
       </GradleProjectSettings>

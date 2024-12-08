@@ -1,4 +1,4 @@
-package com.group75.config;
+package com.group75.RoomService.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

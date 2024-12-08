@@ -32,9 +32,9 @@ public class ApprovalServiceController {
 
     @PostMapping
     public String approveEvent(@RequestBody Approval approval) {if (approvalService.isEventValid(approval.getEventId()) && approvalService.isStaffAuthorized(approval.getUserId())) {
-            approvalService.createApproval(approval);
-            return "Event approved";
-        }
+        approvalService.createApproval(approval);
+        return "Event approved";
+    }
         return "Event approval failed";
     }
 

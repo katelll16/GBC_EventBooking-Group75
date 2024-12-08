@@ -84,4 +84,3 @@ public class BookingServiceImpl implements BookingService { // Implementing the 
         bookingRepository.save(booking);
     }
 }
->>>>>>> 77aaf56da76a49dc32fc61240e1a22db3a63c4b9

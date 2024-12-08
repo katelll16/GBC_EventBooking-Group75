@@ -1,4 +1,4 @@
-package com.group75.UserService.config;
+package com.example.apigateway.config;
 
 import org.springdoc.core.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
@@ -8,10 +8,9 @@ import org.springframework.context.annotation.Configuration;
 public class SwaggerConfig {
 
     @Bean
-    public GroupedOpenApi userServiceApi() {
+    public GroupedOpenApi aggregateApi() {
         return GroupedOpenApi.builder()
-                .group("user-service")
-                .packagesToScan("com.group75.UserService.controller")
+                .group("gateway")
                 .pathsToMatch("/**")
                 .build();
     }
