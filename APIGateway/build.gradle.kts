@@ -32,8 +32,14 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-}
 
+
+	implementation("org.springframework.boot:spring-boot-starter-web") // Web starter
+	implementation("io.springfox:springfox-boot-starter:3.0.0") // Springfox starter
+	implementation("org.springframework.boot:spring-boot-starter-actuator") // Actuator (optional for more info)
+
+
+}
 dependencyManagement {
 	imports {
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
